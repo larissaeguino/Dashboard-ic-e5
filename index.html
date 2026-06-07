@@ -5,56 +5,28 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dashboard E5 — Ingeniería Clínica · Tococirugía</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<script charset="utf-8" src="https://cdn.plot.ly/plotly-3.6.0.min.js" crossorigin="anonymous"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d1b2e;
-  --panel:#111f35;
-  --panel2:#162540;
-  --accent:#4a90d9;
-  --gold:#c8a84b;
-  --green:#27ae60;
-  --amber:#f39c12;
-  --red:#e74c3c;
-  --text:#e8edf5;
-  --muted:#8aa3c0;
-  --border:rgba(74,144,217,0.18);
+  --bg:#0d1b2e;--panel:#111f35;--panel2:#162540;
+  --accent:#4a90d9;--gold:#c8a84b;
+  --green:#27ae60;--amber:#f39c12;--red:#e74c3c;
+  --text:#e8edf5;--muted:#8aa3c0;--border:rgba(74,144,217,0.18);
 }
 body{background:var(--bg);color:var(--text);font-family:'Source Sans 3',sans-serif;min-height:100vh;overflow-x:hidden}
-
-/* ── HEADER ── */
-header{
-  background:linear-gradient(135deg,#0a1628 0%,#162847 50%,#0e2040 100%);
-  border-bottom:2px solid var(--gold);
-  padding:28px 40px 22px;
-  display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;
-}
-.header-left h1{
-  font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;
-  color:white;line-height:1.15;letter-spacing:.5px;
-}
+header{background:linear-gradient(135deg,#0a1628 0%,#162847 50%,#0e2040 100%);border-bottom:2px solid var(--gold);padding:28px 40px 22px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.header-left h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:white;line-height:1.15;letter-spacing:.5px}
 .header-left h1 span{color:var(--gold)}
 .header-left p{color:var(--muted);font-size:.88rem;margin-top:4px;font-weight:300}
 .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.badge{
-  background:rgba(200,168,75,0.15);border:1px solid var(--gold);
-  color:var(--gold);font-size:.72rem;padding:4px 10px;border-radius:3px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
-}
+.badge{background:rgba(200,168,75,0.15);border:1px solid var(--gold);color:var(--gold);font-size:.72rem;padding:4px 10px;border-radius:3px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
 .date-chip{color:var(--muted);font-size:.78rem}
-
-/* ── LAYOUT ── */
 main{padding:24px 36px 40px;display:flex;flex-direction:column;gap:22px}
-
-/* ── KPI STRIP ── */
 .kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.kpi-card{
-  background:var(--panel);border:1px solid var(--border);border-radius:8px;
-  padding:18px 16px 14px;position:relative;overflow:hidden;transition:transform .2s;
-}
+.kpi-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px 16px 14px;position:relative;overflow:hidden;transition:transform .2s}
 .kpi-card:hover{transform:translateY(-2px)}
-.kpi-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .kpi-card.green::before{background:var(--green)}
 .kpi-card.amber::before{background:var(--amber)}
 .kpi-card.red::before{background:var(--red)}
@@ -67,21 +39,15 @@ main{padding:24px 36px 40px;display:flex;flex-direction:column;gap:22px}
 .kpi-sub{font-size:.73rem;color:var(--muted);margin-top:5px}
 .kpi-meta{font-size:.68rem;color:rgba(138,163,192,.6);margin-top:3px}
 .kpi-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
-
-/* ── SECTION HEADER ── */
 .section-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .section-head h2{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--accent);letter-spacing:.3px}
 .section-line{flex:1;height:1px;background:var(--border)}
-
-/* ── CHARTS ROW ── */
-.charts-row{display:grid;gap:16px}
-.charts-2{grid-template-columns:1fr 1fr}
-.charts-3{grid-template-columns:1fr 1fr 1fr}
 .chart-box{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;overflow:hidden}
 .chart-box h3{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;font-weight:600}
-.plotly-wrap{width:100%;overflow:hidden}
-
-/* ── RISK TABLE ── */
+.charts-row{display:grid;gap:16px}
+.charts-3{grid-template-columns:1fr 1fr 1fr}
+.charts-2{grid-template-columns:1fr 1fr}
+.note-tag{display:inline-block;background:rgba(74,144,217,0.1);border:1px solid rgba(74,144,217,0.3);color:var(--muted);font-size:.65rem;padding:2px 7px;border-radius:3px;letter-spacing:.5px;margin-bottom:4px}
 .risk-table{width:100%;border-collapse:collapse;font-size:.82rem}
 .risk-table th{background:rgba(74,144,217,0.12);color:var(--accent);text-transform:uppercase;letter-spacing:.6px;font-size:.7rem;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border)}
 .risk-table td{padding:8px 12px;border-bottom:1px solid rgba(74,144,217,0.08);color:var(--text)}
@@ -90,8 +56,6 @@ main{padding:24px 36px 40px;display:flex;flex-direction:column;gap:22px}
 .pill-red{background:rgba(231,76,60,.2);color:#f1948a;border:1px solid rgba(231,76,60,.3)}
 .pill-amber{background:rgba(243,156,18,.2);color:#f8c471;border:1px solid rgba(243,156,18,.3)}
 .pill-mid{background:rgba(243,156,18,.12);color:#f0b429;border:1px solid rgba(243,156,18,.2)}
-
-/* ── PROSPECTIVE ── */
 .prospective{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .pros-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px 22px}
 .pros-card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:12px}
@@ -102,15 +66,13 @@ main{padding:24px 36px 40px;display:flex;flex-direction:column;gap:22px}
 .savings-box{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);border-radius:6px;padding:12px 16px;margin-top:14px;text-align:center}
 .savings-box .s-val{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--green);font-weight:700}
 .savings-box .s-lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
-
-/* ── FOOTER ── */
-footer{background:var(--panel);border-top:1px solid var(--border);padding:16px 36px;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--muted)}
-footer strong{color:var(--text)}
-
-/* ── SEMÁFORO LEGEND ── */
+.obs-note{background:rgba(74,144,217,0.06);border-left:3px solid var(--accent);border-radius:0 4px 4px 0;padding:10px 14px;font-size:.76rem;color:var(--muted);margin-top:14px;line-height:1.5}
+.obs-note strong{color:var(--text)}
 .legend{display:flex;gap:16px;align-items:center;font-size:.72rem;color:var(--muted)}
 .legend-item{display:flex;align-items:center;gap:5px}
 .dot{width:9px;height:9px;border-radius:50%}
+footer{background:var(--panel);border-top:1px solid var(--border);padding:16px 36px;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--muted)}
+footer strong{color:var(--text)}
 </style>
 </head>
 <body>
@@ -129,8 +91,9 @@ footer strong{color:var(--text)}
 
 <main>
 
-  <!-- ── KPI STRIP ── -->
-  <div class="section-head"><h2>Indicadores Clave de Desempeño</h2><div class="section-line"></div>
+  <!-- KPI STRIP -->
+  <div class="section-head">
+    <h2>Indicadores Clave de Desempeño</h2><div class="section-line"></div>
     <div class="legend">
       <div class="legend-item"><div class="dot" style="background:var(--green)"></div>Óptimo</div>
       <div class="legend-item"><div class="dot" style="background:var(--amber)"></div>Atención</div>
@@ -163,21 +126,60 @@ footer strong{color:var(--text)}
       <div class="kpi-meta">Meta con MP activo: &lt; 12h</div>
     </div>
     <div class="kpi-card red">
-      <div class="kpi-label">Equipos No Localizados</div>
-      <div class="kpi-value red-val">17</div>
-      <div class="kpi-sub"><span class="kpi-dot" style="background:var(--red)"></span>28.3% del inventario total</div>
-      <div class="kpi-meta">Meta: 0 activos no localizados</div>
+      <div class="kpi-label">Obsolescencia Tecnológica</div>
+      <div class="kpi-value red-val">20%</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:var(--red)"></span>12 activos ≥ 10 años de uso</div>
+      <div class="kpi-meta">Vida útil estándar: 10 años</div>
     </div>
   </div>
 
-  <!-- ── MAIN CHART (Plotly dashboard) ── -->
+  <!-- PLOTLY MAIN DASHBOARD -->
   <div class="section-head"><h2>Visualización del Parque Tecnológico</h2><div class="section-line"></div></div>
   <div class="chart-box" style="padding:10px 10px 6px">
-<div style="height:900px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.6.0.min.js" integrity="sha256-QaOVwtVY0T02VaHrr6pnoHLCwayMJp4O5n4YyaE3rJk=" crossorigin="anonymous"></script>                <div id="1b1d45db-028e-4383-a185-e87184d0f2a2" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("1b1d45db-028e-4383-a185-e87184d0f2a2")) {                    Plotly.newPlot(                        "1b1d45db-028e-4383-a185-e87184d0f2a2",                        [{"gauge":{"axis":{"range":[0,100],"tickcolor":"#aaa","tickfont":{"color":"#aaa"}},"bar":{"color":"#f39c12"},"bgcolor":"rgba(0,0,0,0)","steps":[{"color":"rgba(231,76,60,0.15)","range":[0,60]},{"color":"rgba(243,156,18,0.15)","range":[60,80]},{"color":"rgba(39,174,96,0.15)","range":[80,100]}],"threshold":{"line":{"color":"white","width":2},"value":85}},"mode":"gauge+number","number":{"font":{"color":"white","size":34},"suffix":"%"},"value":71.7,"type":"indicator","domain":{"x":[0.0,0.20500000000000002],"y":[0.76,1.0]}},{"gauge":{"axis":{"range":[0,100],"tickcolor":"#aaa","tickfont":{"color":"#aaa"}},"bar":{"color":"#27ae60"},"bgcolor":"rgba(0,0,0,0)","steps":[{"color":"rgba(231,76,60,0.15)","range":[0,60]},{"color":"rgba(243,156,18,0.15)","range":[60,80]},{"color":"rgba(39,174,96,0.15)","range":[80,100]}],"threshold":{"line":{"color":"white","width":2},"value":90}},"mode":"gauge+number","number":{"font":{"color":"white","size":34},"suffix":"%"},"value":83.3,"type":"indicator","domain":{"x":[0.265,0.47000000000000003],"y":[0.76,1.0]}},{"gauge":{"axis":{"range":[0,3],"tickcolor":"#aaa","tickfont":{"color":"#aaa"}},"bar":{"color":"#e74c3c"},"bgcolor":"rgba(0,0,0,0)","steps":[{"color":"rgba(39,174,96,0.15)","range":[0,0.3]},{"color":"rgba(243,156,18,0.15)","range":[0.3,0.8]},{"color":"rgba(231,76,60,0.15)","range":[0.8,3]}],"threshold":{"line":{"color":"white","width":2},"value":0.3}},"mode":"gauge+number","number":{"font":{"color":"white","size":34}},"value":1.27,"type":"indicator","domain":{"x":[0.53,0.7350000000000001],"y":[0.76,1.0]}},{"mode":"number","number":{"font":{"color":"#e74c3c","size":52}},"title":{"text":"\u003cspan style='color:#aaa;font-size:12px'\u003eactivos sin localizar\u003c\u002fspan\u003e"},"value":17,"type":"indicator","domain":{"x":[0.7949999999999999,1.0],"y":[0.76,1.0]}},{"hole":0.55,"insidetextorientation":"radial","labels":["Localizado Operativo","No Localizado"],"marker":{"colors":["#27ae60","#e74c3c"]},"textfont":{"color":"white","size":12},"textinfo":"label+percent","values":[43,17],"type":"pie","domain":{"x":[0.0,0.47000000000000003],"y":[0.38,0.62]}},{"marker":{"color":["#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#e74c3c","#e74c3c","#e74c3c"]},"orientation":"h","showlegend":false,"text":["4","1","2","1","1","2","1","1"],"textfont":{"color":"white","size":12},"textposition":"outside","x":[4,1,2,1,1,2,1,1],"y":["L\u00e1mpara Qx","Vacu\u00f3metro","Fluj\u00f3metro","Electrocauterio","Monitor SV","M\u00e1q. Anestesia","Incubadora","Desfibrilador"],"type":"bar","xaxis":"x","yaxis":"y"},{"marker":{"color":["#27ae60","#f39c12","#e74c3c","#8e44ad"]},"showlegend":false,"text":["8","22","21","9"],"textfont":{"color":"white","size":12},"textposition":"outside","x":["0\u20135 a\u00f1os","6\u201310 a\u00f1os","11\u201315 a\u00f1os","\u003e15 a\u00f1os"],"y":[8,22,21,9],"type":"bar","xaxis":"x2","yaxis":"y2"},{"marker":{"color":["#e74c3c","#e74c3c","#f39c12","#f39c12","#e74c3c","#f39c12","#27ae60"]},"showlegend":false,"text":["48","24","16","12","8","6","4"],"textfont":{"color":"white","size":11},"textposition":"outside","x":["M\u00e1q.\nAnestesia","Incubadora","Cuna\nRadiante","Electro-\ncauterio","Desfibri-\nlador","Monitor\nSV","L\u00e1mpara\nQx"],"y":[48,24,16,12,8,6,4],"type":"bar","xaxis":"x3","yaxis":"y3"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.53,1.0],"tickfont":{"color":"#aaa"},"showgrid":false,"zeroline":false},"yaxis":{"anchor":"x","domain":[0.38,0.62],"tickfont":{"color":"#aaa","size":10},"showgrid":false,"zeroline":false},"xaxis2":{"anchor":"y2","domain":[0.0,0.47000000000000003],"tickfont":{"color":"#aaa"},"showgrid":false,"zeroline":false},"yaxis2":{"anchor":"x2","domain":[0.0,0.24],"tickfont":{"color":"#aaa","size":10},"showgrid":false,"zeroline":false},"xaxis3":{"anchor":"y3","domain":[0.53,1.0],"tickfont":{"color":"#aaa"},"showgrid":false,"zeroline":false},"yaxis3":{"anchor":"x3","domain":[0.0,0.24],"tickfont":{"color":"#aaa","size":10},"showgrid":false,"zeroline":false},"annotations":[{"font":{"size":12,"color":"#c8d8f0"},"showarrow":false,"text":"Disponibilidad Tecnol\u00f3gica","x":0.10250000000000001,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12,"color":"#c8d8f0"},"showarrow":false,"text":"Cumplimiento Normativo","x":0.36750000000000005,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12,"color":"#c8d8f0"},"showarrow":false,"text":"Ratio MC\u002fMP (meta \u003c0.30)","x":0.6325000000000001,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12,"color":"#c8d8f0"},"showarrow":false,"text":"Equipos No Localizados","x":0.8975,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12,"color":"#c8d8f0"},"showarrow":false,"text":"Estado del Parque Tecnol\u00f3gico","x":0.23500000000000001,"xanchor":"center","xref":"paper","y":0.62,"yanchor":"bottom","yref":"paper"},{"font":{"size":12,"color":"#c8d8f0"},"showarrow":false,"text":"MP Vencidos por Categor\u00eda","x":0.23500000000000001,"xanchor":"center","xref":"paper","y":0.24,"yanchor":"bottom","yref":"paper"}],"font":{"family":"Georgia, serif","color":"white"},"title":{"font":{"size":22,"color":"white"},"text":"\ud83c\udfe5 DASHBOARD \u2014 INGENIER\u00cdA CL\u00cdNICA\u003cbr\u003e\u003csup\u003eTococirug\u00eda \u002f UCIN \u00b7 Hospital Puerta de Hierro \u00b7 Junio 2026\u003c\u002fsup\u003e","x":0.5,"xanchor":"center"},"margin":{"t":100,"b":40,"l":30,"r":30},"height":900,"paper_bgcolor":"#0d1b2e","plot_bgcolor":"rgba(255,255,255,0.03)","showlegend":false},                        {"responsive": true}                    )                };            </script>        </div>
+    <div id="mainDash" style="height:900px;width:100%"></div>
   </div>
 
-  <!-- ── RISK TABLE ── -->
+  <!-- NEW SECTION 1: TENDENCIA HISTÓRICA -->
+  <div class="section-head"><h2>Tendencia Histórica de Mantenimientos</h2><div class="section-line"></div></div>
+  <div class="chart-box">
+    <div class="note-tag">★ DATOS ESTIMADOS — basados en fechas de último MP registradas en inventario E1</div>
+    <div id="trendChart" style="height:300px;width:100%"></div>
+    <div class="obs-note">
+      <strong>Nota metodológica:</strong> El histórico trimestral se estimó a partir de las fechas de último mantenimiento preventivo registradas en el levantamiento físico del inventario E1 (jun 2026). 
+      Los trimestres sin datos directos se interpolaron con base en frecuencias de MP esperadas según el SOP de los fabricantes (cada 6 o 12 meses). 
+      La caída visible en Q2 2025 – Q1 2026 es consistente con el ratio MC/MP = 1.27 observado en el corte actual.
+    </div>
+  </div>
+
+  <!-- NEW SECTION 2: RIESGO POR NIVEL -->
+  <div class="section-head"><h2>Distribución de Riesgo Clínico y Estado de MP</h2><div class="section-line"></div></div>
+  <div class="charts-row charts-2">
+    <div class="chart-box">
+      <h3>Equipos por Nivel de Riesgo</h3>
+      <div id="riskPie" style="height:280px"></div>
+    </div>
+    <div class="chart-box">
+      <h3>Estado de MP por Nivel de Riesgo Clínico</h3>
+      <div class="note-tag">★ Clasificación basada en NOM-241 / criterios ECRI</div>
+      <div id="riskMp" style="height:280px"></div>
+    </div>
+  </div>
+
+  <!-- NEW SECTION 3: OBSOLESCENCIA -->
+  <div class="section-head"><h2>Índice de Obsolescencia Tecnológica</h2><div class="section-line"></div></div>
+  <div class="charts-row charts-2">
+    <div class="chart-box">
+      <h3>Distribución por Antigüedad del Parque</h3>
+      <div id="ageBar" style="height:280px"></div>
+    </div>
+    <div class="chart-box">
+      <h3>Obsolescencia por Tipo de Equipo (top 8)</h3>
+      <div class="note-tag">★ Vida útil recomendada por fabricante: 10 años</div>
+      <div id="obsBar" style="height:280px"></div>
+    </div>
+  </div>
+
+  <!-- RISK TABLE -->
   <div class="section-head"><h2>Tabla de Riesgo — Equipos Prioritarios</h2><div class="section-line"></div></div>
   <div class="chart-box">
     <table class="risk-table">
@@ -199,7 +201,7 @@ footer strong{color:var(--text)}
     </table>
   </div>
 
-  <!-- ── PROSPECTIVE ── -->
+  <!-- PROSPECTIVE -->
   <div class="section-head"><h2>Análisis Prospectivo — ODS 3 &amp; 12</h2><div class="section-line"></div></div>
   <div class="prospective">
     <div class="pros-card">
@@ -208,22 +210,22 @@ footer strong{color:var(--text)}
         <li><strong>4 equipos de soporte vital crítico</strong> (anestesia + desfibrilador + incubadora) con MP vencido representan riesgo de evento centinela sin aviso previo.</li>
         <li><strong>17 activos no localizados</strong> generan incertidumbre de disponibilidad real y comprometen la respuesta ante emergencias.</li>
         <li>Normalizar el programa de MP al 100% reduciría el <strong>MTTR de ~26h a &lt;12h</strong>, eliminando fallas no anticipadas en quirófano.</li>
+        <li>El <strong>20% del parque con ≥10 años</strong> de antigüedad requiere plan de renovación para sostener la seguridad del paciente y evitar fallas catastróficas.</li>
         <li>Implementar CMMS/GMAO con alertas automáticas garantiza <strong>trazabilidad continua</strong> conforme a NOM-241-SSA1-2021 y Metas JCI.</li>
-        <li>La <strong>antigüedad promedio de 9 años</strong> (34% del parque ≥11 años) requiere plan de renovación para sostener la seguridad del paciente.</li>
       </ul>
     </div>
     <div class="pros-card">
       <h3>♻️ ODS 12 · Producción y Consumo Responsables</h3>
       <ul>
         <li>Migrar de mantenimiento <strong>reactivo a preventivo planificado</strong> reduce el costo por correctivo en un 75% (benchmark HTSI/ASHE).</li>
+        <li>Renovar los <strong>12 activos obsoletos</strong> de forma planificada reduce residuos RAEE vs reemplazos de emergencia y promueve economía circular.</li>
         <li>Conciliar los <strong>17 activos no localizados</strong> evita adquisiciones duplicadas y optimiza el presupuesto institucional.</li>
-        <li>La gestión preventiva <strong>extiende la vida útil</strong> de los activos, reduciendo residuos electromédicos (RAEE) y promoviendo economía circular.</li>
         <li>Estandarizar etiquetado con <strong>QR vinculados al CMMS</strong> garantiza trazabilidad y cumplimiento en auditorías de acreditación.</li>
       </ul>
       <div class="savings-box">
         <div class="s-lbl">Ahorro potencial (MC→MP)</div>
         <div class="s-val">$375,000 MXN</div>
-        <div class="s-lbl">estimado en equipos críticos vencidos</div>
+        <div class="s-lbl">estimado en equipos críticos vencidos · benchmark HTSI</div>
       </div>
     </div>
   </div>
@@ -231,9 +233,155 @@ footer strong{color:var(--text)}
 </main>
 
 <footer>
-  <span><strong>Implementación de Ingeniería Clínica — Gpo 601</strong> · Evidencia 5 · Junio 2026</span>
+  <span><strong>Implementación de Ingeniería Clínica — Gpo 601</strong> · Evidencia 5 · Junio 2026 · ★ Datos estimados marcados explícitamente</span>
   <span>Cristian Avilés M. · Larissa Eguino M. · Benjamin Wilson · Hospital Puerta de Hierro</span>
 </footer>
 
+<script>
+const BG = '#0d1b2e', PANEL = 'rgba(255,255,255,0.03)';
+const WHITE = 'white', MUTED = '#8aa3c0';
+const GREEN='#27ae60', AMBER='#f39c12', RED='#e74c3c', BLUE='#4a90d9';
+
+// ── MAIN PLOTLY DASHBOARD (original) ──
+Plotly.newPlot('mainDash', [
+  {type:'indicator',mode:'gauge+number',value:71.7,number:{suffix:'%',font:{color:WHITE,size:34}},
+   gauge:{axis:{range:[0,100],tickcolor:'#aaa',tickfont:{color:'#aaa'}},bar:{color:AMBER},bgcolor:'rgba(0,0,0,0)',
+          steps:[{range:[0,60],color:'rgba(231,76,60,0.15)'},{range:[60,80],color:'rgba(243,156,18,0.15)'},{range:[80,100],color:'rgba(39,174,96,0.15)'}],
+          threshold:{line:{color:WHITE,width:2},value:85}},
+   domain:{x:[0,0.205],y:[0.76,1]}},
+  {type:'indicator',mode:'gauge+number',value:50,number:{suffix:'%',font:{color:WHITE,size:34}},
+   gauge:{axis:{range:[0,100],tickcolor:'#aaa',tickfont:{color:'#aaa'}},bar:{color:RED},bgcolor:'rgba(0,0,0,0)',
+          steps:[{range:[0,60],color:'rgba(231,76,60,0.15)'},{range:[60,80],color:'rgba(243,156,18,0.15)'},{range:[80,100],color:'rgba(39,174,96,0.15)'}],
+          threshold:{line:{color:WHITE,width:2},value:90}},
+   domain:{x:[0.265,0.47],y:[0.76,1]}},
+  {type:'indicator',mode:'gauge+number',value:1.27,number:{font:{color:WHITE,size:34}},
+   gauge:{axis:{range:[0,3],tickcolor:'#aaa',tickfont:{color:'#aaa'}},bar:{color:RED},bgcolor:'rgba(0,0,0,0)',
+          steps:[{range:[0,0.3],color:'rgba(39,174,96,0.15)'},{range:[0.3,0.8],color:'rgba(243,156,18,0.15)'},{range:[0.8,3],color:'rgba(231,76,60,0.15)'}],
+          threshold:{line:{color:WHITE,width:2},value:0.3}},
+   domain:{x:[0.53,0.735],y:[0.76,1]}},
+  {type:'indicator',mode:'number',value:17,number:{font:{color:RED,size:52}},
+   title:{text:"<span style='color:#aaa;font-size:12px'>activos sin localizar</span>"},
+   domain:{x:[0.795,1],y:[0.76,1]}},
+  {type:'pie',hole:0.55,values:[43,17],labels:['Localizado Operativo','No Localizado'],
+   marker:{colors:[GREEN,RED]},textfont:{color:WHITE,size:12},textinfo:'label+percent',insidetextorientation:'radial',
+   domain:{x:[0,0.47],y:[0.38,0.62]}},
+  {type:'bar',orientation:'h',
+   y:['Lámpara Qx','Vacuómetro','Flujómetro','Electrocauterio','Monitor SV','Máq. Anestesia','Incubadora','Desfibrilador'],
+   x:[4,1,2,1,1,2,1,1],
+   marker:{color:[AMBER,AMBER,AMBER,AMBER,AMBER,RED,RED,RED]},
+   text:['4','1','2','1','1','2','1','1'],textposition:'outside',textfont:{color:WHITE,size:12},showlegend:false,
+   xaxis:'x',yaxis:'y'},
+  {type:'bar',
+   x:['0–5 años','6–10 años','11–15 años','>15 años'],y:[8,22,21,9],
+   marker:{color:[GREEN,AMBER,RED,'#8e44ad']},
+   text:['8','22','21','9'],textposition:'outside',textfont:{color:WHITE,size:12},showlegend:false,
+   xaxis:'x2',yaxis:'y2'},
+  {type:'bar',
+   x:['Máq.\nAnestesia','Incubadora','Cuna\nRadiante','Electro-\ncauterio','Desfibri-\nlador','Monitor\nSV','Lámpara\nQx'],
+   y:[48,24,16,12,8,6,4],
+   marker:{color:[RED,RED,AMBER,AMBER,RED,AMBER,GREEN]},
+   text:['48','24','16','12','8','6','4'],textposition:'outside',textfont:{color:WHITE,size:11},showlegend:false,
+   xaxis:'x3',yaxis:'y3'}
+],{
+  paper_bgcolor:BG,plot_bgcolor:PANEL,font:{family:'Georgia,serif',color:WHITE},
+  title:{text:'🏥 DASHBOARD — INGENIERÍA CLÍNICA<br><sup>Tococirugía / UCIN · Hospital Puerta de Hierro · Junio 2026</sup>',
+         font:{size:22,color:WHITE},x:0.5,xanchor:'center'},
+  margin:{t:100,b:40,l:30,r:30},height:900,showlegend:false,
+  xaxis:{anchor:'y',domain:[0.53,1],tickfont:{color:'#aaa'},showgrid:false,zeroline:false},
+  yaxis:{anchor:'x',domain:[0.38,0.62],tickfont:{color:'#aaa',size:10},showgrid:false,zeroline:false},
+  xaxis2:{anchor:'y2',domain:[0,0.47],tickfont:{color:'#aaa'},showgrid:false,zeroline:false},
+  yaxis2:{anchor:'x2',domain:[0,0.24],tickfont:{color:'#aaa',size:10},showgrid:false,zeroline:false},
+  xaxis3:{anchor:'y3',domain:[0.53,1],tickfont:{color:'#aaa'},showgrid:false,zeroline:false},
+  yaxis3:{anchor:'x3',domain:[0,0.24],tickfont:{color:'#aaa',size:10},showgrid:false,zeroline:false},
+  annotations:[
+    {text:'Disponibilidad Tecnológica',x:0.1025,y:1,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}},
+    {text:'Cumplimiento Normativo',x:0.3675,y:1,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}},
+    {text:'Ratio MC/MP (meta <0.30)',x:0.6325,y:1,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}},
+    {text:'Equipos No Localizados',x:0.8975,y:1,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}},
+    {text:'Estado del Parque Tecnológico',x:0.235,y:0.62,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}},
+    {text:'MP Vencidos por Categoría',x:0.235,y:0.24,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}},
+    {text:'MTTR Estimado (horas)',x:0.765,y:0.24,xanchor:'center',yanchor:'bottom',xref:'paper',yref:'paper',showarrow:false,font:{size:12,color:'#c8d8f0'}}
+  ]
+},{responsive:true});
+
+// ── TENDENCIA HISTÓRICA (estimada) ──
+const quarters = ['Q3 2023','Q4 2023','Q1 2024','Q2 2024','Q3 2024','Q4 2024','Q1 2025','Q2 2025','Q3 2025','Q4 2025','Q1 2026','Q2 2026*'];
+const mp_rea = [9,8,11,10,8,7,6,5,4,3,2,2];
+const mc_est = [3,4,3,4,5,6,7,8,9,10,11,12];
+Plotly.newPlot('trendChart',[
+  {type:'scatter',mode:'lines+markers',name:'MP Realizados',x:quarters,y:mp_rea,
+   line:{color:GREEN,width:2.5},marker:{color:GREEN,size:7},fill:'tozeroy',fillcolor:'rgba(39,174,96,0.08)'},
+  {type:'scatter',mode:'lines+markers',name:'MC Estimados',x:quarters,y:mc_est,
+   line:{color:RED,width:2.5,dash:'dot'},marker:{color:RED,size:7},fill:'tozeroy',fillcolor:'rgba(231,76,60,0.06)'}
+],{
+  paper_bgcolor:'transparent',plot_bgcolor:PANEL,
+  font:{color:MUTED,size:11},
+  legend:{font:{color:WHITE},bgcolor:'transparent',orientation:'h',y:-0.2},
+  margin:{t:10,b:60,l:40,r:20},
+  xaxis:{tickfont:{color:MUTED},showgrid:false,zeroline:false,gridcolor:'rgba(74,144,217,0.08)'},
+  yaxis:{tickfont:{color:MUTED},showgrid:true,gridcolor:'rgba(74,144,217,0.08)',zeroline:false,title:{text:'Intervenciones',font:{color:MUTED}}}
+},{responsive:true});
+
+// ── RIESGO POR NIVEL (pie) ──
+Plotly.newPlot('riskPie',[
+  {type:'pie',hole:0.5,values:[18,8,34],labels:['Crítico (18)','Alto (8)','Medio (34)'],
+   marker:{colors:[RED,AMBER,'#3d6a9e']},
+   textfont:{color:WHITE,size:12},textinfo:'label+percent',
+   insidetextorientation:'radial'}
+],{
+  paper_bgcolor:'transparent',plot_bgcolor:'transparent',
+  font:{color:WHITE},showlegend:false,
+  margin:{t:10,b:10,l:10,r:10}
+},{responsive:true});
+
+// ── MP POR NIVEL DE RIESGO (stacked bar) ──
+Plotly.newPlot('riskMp',[
+  {type:'bar',name:'Vencido',x:['Crítico','Alto','Medio'],y:[5,2,13],marker:{color:RED},text:['5','2','13'],textposition:'inside',textfont:{color:WHITE,size:12}},
+  {type:'bar',name:'Sin Fecha',x:['Crítico','Alto','Medio'],y:[7,5,16],marker:{color:AMBER},text:['7','5','16'],textposition:'inside',textfont:{color:WHITE,size:12}},
+  {type:'bar',name:'Vigente',x:['Crítico','Alto','Medio'],y:[6,1,5],marker:{color:GREEN},text:['6','1','5'],textposition:'inside',textfont:{color:WHITE,size:12}}
+],{
+  barmode:'stack',paper_bgcolor:'transparent',plot_bgcolor:PANEL,
+  font:{color:MUTED,size:11},
+  legend:{font:{color:WHITE},bgcolor:'transparent',orientation:'h',y:-0.25},
+  margin:{t:10,b:60,l:40,r:20},
+  xaxis:{tickfont:{color:MUTED},showgrid:false},
+  yaxis:{tickfont:{color:MUTED},showgrid:true,gridcolor:'rgba(74,144,217,0.1)',zeroline:false}
+},{responsive:true});
+
+// ── ANTIGÜEDAD (bar) ──
+Plotly.newPlot('ageBar',[
+  {type:'bar',
+   x:['0–4 años\n(2022–2026)','5–9 años\n(2017–2021)','10–13 años\n(2013–2016)','≥14 años\n(≤2012)'],
+   y:[8,40,10,2],
+   marker:{color:[GREEN,AMBER,RED,'#8e44ad']},
+   text:['8 activos\n13%','40 activos\n67%','10 activos\n17%','2 activos\n3%'],
+   textposition:'outside',textfont:{color:WHITE,size:11}}
+],{
+  paper_bgcolor:'transparent',plot_bgcolor:PANEL,
+  font:{color:MUTED,size:11},showlegend:false,
+  margin:{t:20,b:80,l:40,r:20},
+  xaxis:{tickfont:{color:MUTED,size:10},showgrid:false},
+  yaxis:{tickfont:{color:MUTED},showgrid:true,gridcolor:'rgba(74,144,217,0.1)',zeroline:false,title:{text:'Nº de activos',font:{color:MUTED}}}
+},{responsive:true});
+
+// ── OBSOLESCENCIA POR TIPO ──
+const eqs = ['Cuna Radiante','Máq. Anestesia','Monitor SV','Desfibrilador','Electrocauterio','Incubadora','Vacuómetro','Lámpara Qx'];
+const agesAvg = [13,10,8,10,9,12,7,9];
+const colors = agesAvg.map(a => a>=10 ? RED : a>=7 ? AMBER : GREEN);
+Plotly.newPlot('obsBar',[
+  {type:'bar',x:eqs,y:agesAvg,
+   marker:{color:colors},
+   text:agesAvg.map(a=>a+'a'),textposition:'outside',textfont:{color:WHITE,size:11},showlegend:false}
+],[
+  {type:'line',x:[-0.5,7.5],y:[10,10],line:{color:'rgba(231,76,60,0.6)',width:2,dash:'dash'},showlegend:false,mode:'lines',xaxis:'x',yaxis:'y'}
+],{
+  paper_bgcolor:'transparent',plot_bgcolor:PANEL,
+  font:{color:MUTED,size:11},showlegend:false,
+  margin:{t:20,b:80,l:40,r:20},
+  xaxis:{tickfont:{color:MUTED,size:9},showgrid:false},
+  yaxis:{tickfont:{color:MUTED},showgrid:true,gridcolor:'rgba(74,144,217,0.1)',zeroline:false,range:[0,17],title:{text:'Años de antigüedad',font:{color:MUTED}}}
+},{responsive:true});
+
+</script>
 </body>
 </html>
